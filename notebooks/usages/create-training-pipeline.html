@@ -42,7 +42,7 @@
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="索引" href="../../genindex.html" />
     <link rel="search" title="搜索" href="../../search.html" />
-    <link rel="next" title="AIP 参考" href="../../reference/index.html" />
+    <link rel="next" title="部署模型" href="deploy-model.html" />
     <link rel="prev" title="创建训练镜像" href="create-training-image.html" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="docsearch:language" content="zh-CN">
@@ -177,6 +177,11 @@
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
      创建训练流水线
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="deploy-model.html">
+     部署模型
     </a>
    </li>
   </ul>
@@ -516,15 +521,15 @@ div.rendered_html tbody tr:hover {
 }
 </style>
 <div class="section" id="创建训练流水线">
-<h1>创建训练流水线<a class="headerlink" href="#创建训练流水线" title="Permalink to this heading">#</a></h1>
+<h1>创建训练流水线<a class="headerlink" href="#创建训练流水线" title="此标题的永久链接">#</a></h1>
 <div class="section" id="导语">
-<h2>导语<a class="headerlink" href="#导语" title="Permalink to this heading">#</a></h2>
+<h2>导语<a class="headerlink" href="#导语" title="此标题的永久链接">#</a></h2>
 <p>此笔记旨在创建一个训练流水线，以便我们可以训练一个模型。</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">HOST</span> <span class="o">=</span> <span class="s2">&quot;http://localhost:5002&quot;</span>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">HOST</span> <span class="o">=</span> <span class="s2">&quot;https://aip-apis.nadileaf.com&quot;</span>
 <span class="n">PROJECT_ID</span> <span class="o">=</span> <span class="s2">&quot;tokyo-rain-42&quot;</span>
 <span class="n">LOCATION</span> <span class="o">=</span> <span class="s2">&quot;default&quot;</span>
 </pre></div>
@@ -532,9 +537,9 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="section" id="编写训练代码">
-<h2>编写训练代码<a class="headerlink" href="#编写训练代码" title="Permalink to this heading">#</a></h2>
+<h2>编写训练代码<a class="headerlink" href="#编写训练代码" title="此标题的永久链接">#</a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span> mkdir -p /tmp/aip/create-training-pipeline
@@ -544,7 +549,7 @@ div.rendered_html tbody tr:hover {
 </div>
 <p>使用魔术命令 <code class="docutils literal notranslate"><span class="pre">%%writefile</span></code> 将训练代码写入 <code class="docutils literal notranslate"><span class="pre">/tmp/aip/create-train-pipeline/aip_task.py</span></code> 文件中。</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="o">%%writefile</span> /tmp/aip/create-training-pipeline/aip_task.py
@@ -588,23 +593,40 @@ div.rendered_html tbody tr:hover {
 <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">test_input</span><span class="p">,</span> <span class="n">test_target</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">s3_save_keras_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">model_name</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">s3_save_keras_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">model_name</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="s2">&quot;1&quot;</span><span class="p">):</span>
     <span class="kn">import</span> <span class="nn">re</span>
     <span class="kn">import</span> <span class="nn">tempfile</span>
     <span class="kn">import</span> <span class="nn">boto3</span>
+    <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 
     <span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">TemporaryDirectory</span><span class="p">()</span> <span class="k">as</span> <span class="n">tempdir</span><span class="p">:</span>
-        <span class="n">local_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">tempdir</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">model_name</span><span class="si">}</span><span class="s2">&quot;</span>
-        <span class="n">model</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">local_path</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Saving model to </span><span class="si">{</span><span class="n">tempdir</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-        <span class="n">bucket_name</span><span class="p">,</span> <span class="n">model_dir</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s2">&quot;s3://([^/]+)/(.*)&quot;</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">model_dir</span><span class="p">)</span><span class="o">.</span><span class="n">groups</span><span class="p">()</span>
-        <span class="n">remote_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">model_dir</span><span class="si">}{</span><span class="n">model_name</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="n">local_model_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">tempdir</span><span class="p">,</span> <span class="n">model_name</span><span class="p">,</span> <span class="n">version</span><span class="p">)</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">local_model_dir</span><span class="p">,</span> <span class="n">save_format</span><span class="o">=</span><span class="s2">&quot;tf&quot;</span><span class="p">)</span>
+
         <span class="n">client</span> <span class="o">=</span> <span class="n">boto3</span><span class="o">.</span><span class="n">client</span><span class="p">(</span><span class="s2">&quot;s3&quot;</span><span class="p">)</span>
-        <span class="n">client</span><span class="o">.</span><span class="n">upload_file</span><span class="p">(</span><span class="n">Filename</span><span class="o">=</span><span class="n">local_path</span><span class="p">,</span> <span class="n">Bucket</span><span class="o">=</span><span class="n">bucket_name</span><span class="p">,</span> <span class="n">Key</span><span class="o">=</span><span class="n">remote_path</span><span class="p">)</span>
+        <span class="n">bucket_name</span><span class="p">,</span> <span class="n">key_prefix</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s2">&quot;s3://([^/]+)/(.*)&quot;</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">model_dir</span><span class="p">)</span><span class="o">.</span><span class="n">groups</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">key_prefix</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">):</span>
+            <span class="n">key_prefix</span> <span class="o">+=</span> <span class="s2">&quot;/&quot;</span>
+
+        <span class="n">local_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">tempdir</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">local_dir</span><span class="o">.</span><span class="n">rglob</span><span class="p">(</span><span class="s2">&quot;*&quot;</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
+                <span class="k">continue</span>
+            <span class="n">relative</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">relative_to</span><span class="p">(</span><span class="n">local_dir</span><span class="p">)</span>
+            <span class="n">key_suffix</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">relative</span><span class="p">)</span>
+            <span class="n">key</span> <span class="o">=</span> <span class="n">key_prefix</span> <span class="o">+</span> <span class="n">key_suffix</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Uploading </span><span class="si">{</span><span class="n">item</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">client</span><span class="o">.</span><span class="n">upload_file</span><span class="p">(</span>
+                <span class="n">Filename</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">absolute</span><span class="p">()),</span>
+                <span class="n">Bucket</span><span class="o">=</span><span class="n">bucket_name</span><span class="p">,</span>
+                <span class="n">Key</span><span class="o">=</span><span class="n">key</span><span class="p">,</span>
+            <span class="p">)</span>
 
 
 <span class="c1"># Calling `save(&#39;my_model&#39;)` creates a SavedModel folder `my_model`.</span>
-<span class="n">s3_save_keras_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s2">&quot;my_model.h5&quot;</span><span class="p">)</span>
+<span class="n">s3_save_keras_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s2">&quot;naive_model&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -618,9 +640,9 @@ Overwriting /tmp/aip/create-training-pipeline/aip_task.py
 </div>
 </div>
 <div class="section" id="打包训练代码">
-<h2>打包训练代码<a class="headerlink" href="#打包训练代码" title="Permalink to this heading">#</a></h2>
+<h2>打包训练代码<a class="headerlink" href="#打包训练代码" title="此标题的永久链接">#</a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span> rm -f /tmp/aip/create-training-pipeline.tar.gz
@@ -642,9 +664,9 @@ upload: ../../../../../../../../tmp/aip/create-training-pipeline.tar.gz to s3://
 </div>
 </div>
 <div class="section" id="发起「创建训练流水线」请求">
-<h2>发起「创建训练流水线」请求<a class="headerlink" href="#发起「创建训练流水线」请求" title="Permalink to this heading">#</a></h2>
+<h2>发起「创建训练流水线」请求<a class="headerlink" href="#发起「创建训练流水线」请求" title="此标题的永久链接">#</a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
@@ -661,16 +683,16 @@ upload: ../../../../../../../../tmp/aip/create-training-pipeline.tar.gz to s3://
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&#39;create-train-pipeline_20220721182038&#39;
+&#39;create-train-pipeline_20220812062200&#39;
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">devtools</span> <span class="kn">import</span> <span class="n">pprint</span>
@@ -697,7 +719,15 @@ upload: ../../../../../../../../tmp/aip/create-training-pipeline.tar.gz to s3://
         <span class="s2">&quot;modelToUpload&quot;</span><span class="p">:</span> <span class="p">{</span>
             <span class="s2">&quot;displayName&quot;</span><span class="p">:</span> <span class="n">DISPLAY_NAME</span><span class="p">,</span>
             <span class="s2">&quot;predictSchemata&quot;</span><span class="p">:</span> <span class="p">{},</span>
-            <span class="s2">&quot;containerSpec&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;imageUri&quot;</span><span class="p">:</span> <span class="s2">&quot;IMAGE_URI&quot;</span><span class="p">},</span>
+            <span class="s2">&quot;containerSpec&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;imageUri&quot;</span><span class="p">:</span> <span class="s2">&quot;tensorflow/serving:latest&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;ports&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;containerPort&quot;</span><span class="p">:</span> <span class="mi">8501</span><span class="p">}],</span>
+                <span class="s2">&quot;env&quot;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;MODEL_BASE_PATH&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;/app&quot;</span><span class="p">},</span>
+                    <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;MODEL_NAME&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;naive_model&quot;</span><span class="p">},</span>
+                <span class="p">],</span>
+                <span class="s2">&quot;predictRoute&quot;</span><span class="p">:</span> <span class="s2">&quot;/v1/models/naive_model:predict&quot;</span><span class="p">,</span>
+            <span class="p">},</span>
         <span class="p">},</span>
     <span class="p">}</span>
 <span class="p">)</span>
@@ -715,8 +745,8 @@ upload: ../../../../../../../../tmp/aip/create-training-pipeline.tar.gz to s3://
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 {
-    &#39;name&#39;: &#39;projects/tokyo-rain-42/locations/default/trainingPipelines/ae4668ea-e95d-49d5-a783-6f20d13d14fb&#39;,
-    &#39;displayName&#39;: &#39;create-train-pipeline_20220721182038&#39;,
+    &#39;name&#39;: &#39;projects/tokyo-rain-42/locations/default/trainingPipelines/00b5f52e-a467-4932-a051-5fa7c0c15adb&#39;,
+    &#39;displayName&#39;: &#39;create-train-pipeline_20220812062200&#39;,
     &#39;trainingTaskDefinition&#39;: &#39;s3://aip/schema/trainingjob/definition/custom_task_1.0.0.yaml&#39;,
     &#39;trainingTaskInputs&#39;: {
         &#39;workerPoolSpecs&#39;: [
@@ -733,18 +763,31 @@ upload: ../../../../../../../../tmp/aip/create-training-pipeline.tar.gz to s3://
     },
     &#39;modelToUpload&#39;: {
         &#39;name&#39;: &#39;&#39;,
-        &#39;displayName&#39;: &#39;create-train-pipeline_20220721182038&#39;,
+        &#39;displayName&#39;: &#39;create-train-pipeline_20220812062200&#39;,
         &#39;description&#39;: &#39;&#39;,
         &#39;metadataSchemaUri&#39;: &#39;&#39;,
         &#39;supportedExportFormats&#39;: [],
-        &#39;trainingPipeline&#39;: &#39;projects/tokyo-rain-42/locations/default/trainingPipelines/ae4668ea-e95d-49d5-a783-6f20d13d14fb&#39;,
+        &#39;trainingPipeline&#39;: &#39;projects/tokyo-rain-42/locations/default/trainingPipelines/00b5f52e-a467-4932-a051-5fa7c0c15adb&#39;,
         &#39;containerSpec&#39;: {
-            &#39;imageUri&#39;: &#39;IMAGE_URI&#39;,
+            &#39;imageUri&#39;: &#39;tensorflow/serving:latest&#39;,
             &#39;command&#39;: [],
             &#39;args&#39;: [],
-            &#39;env&#39;: [],
-            &#39;ports&#39;: [],
-            &#39;predictRoute&#39;: &#39;&#39;,
+            &#39;env&#39;: [
+                {
+                    &#39;name&#39;: &#39;MODEL_BASE_PATH&#39;,
+                    &#39;value&#39;: &#39;/app&#39;,
+                },
+                {
+                    &#39;name&#39;: &#39;MODEL_NAME&#39;,
+                    &#39;value&#39;: &#39;naive_model&#39;,
+                },
+            ],
+            &#39;ports&#39;: [
+                {
+                    &#39;containerPort&#39;: 8501,
+                },
+            ],
+            &#39;predictRoute&#39;: &#39;/v1/models/naive_model:predict&#39;,
             &#39;healthRoute&#39;: &#39;&#39;,
         },
         &#39;artifactUri&#39;: &#39;&#39;,
@@ -754,21 +797,21 @@ upload: ../../../../../../../../tmp/aip/create-training-pipeline.tar.gz to s3://
         &#39;deployedModels&#39;: [],
         &#39;etag&#39;: &#39;&#39;,
         &#39;labels&#39;: {},
-        &#39;createTime&#39;: &#39;2022-07-21T02:33:31.839922Z&#39;,
-        &#39;updateTime&#39;: &#39;2022-07-21T02:33:31.839922Z&#39;,
+        &#39;createTime&#39;: &#39;2022-08-11T23:14:27.802937Z&#39;,
+        &#39;updateTime&#39;: &#39;2022-08-11T23:14:27.802937Z&#39;,
     },
     &#39;state&#39;: &#39;PIPELINE_STATE_QUEUED&#39;,
     &#39;labels&#39;: {},
-    &#39;createTime&#39;: &#39;2022-07-21T02:33:31.839883Z&#39;,
-    &#39;updateTime&#39;: &#39;2022-07-21T02:33:31.839883Z&#39;,
+    &#39;createTime&#39;: &#39;2022-08-11T23:14:27.802920Z&#39;,
+    &#39;updateTime&#39;: &#39;2022-08-11T23:14:27.802920Z&#39;,
 }
 </pre></div></div>
 </div>
 </div>
 <div class="section" id="获取「训练流水线」的「名字」">
-<h2>获取「训练流水线」的「名字」<a class="headerlink" href="#获取「训练流水线」的「名字」" title="Permalink to this heading">#</a></h2>
+<h2>获取「训练流水线」的「名字」<a class="headerlink" href="#获取「训练流水线」的「名字」" title="此标题的永久链接">#</a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">TRAINING_PIPELINE_NAME</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
@@ -777,20 +820,20 @@ upload: ../../../../../../../../tmp/aip/create-training-pipeline.tar.gz to s3://
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&#39;projects/tokyo-rain-42/locations/default/trainingPipelines/ae4668ea-e95d-49d5-a783-6f20d13d14fb&#39;
+&#39;projects/tokyo-rain-42/locations/default/trainingPipelines/00b5f52e-a467-4932-a051-5fa7c0c15adb&#39;
 </pre></div></div>
 </div>
 </div>
 <div class="section" id="查询「训练流水线」的「状态」">
-<h2>查询「训练流水线」的「状态」<a class="headerlink" href="#查询「训练流水线」的「状态」" title="Permalink to this heading">#</a></h2>
+<h2>查询「训练流水线」的「状态」<a class="headerlink" href="#查询「训练流水线」的「状态」" title="此标题的永久链接">#</a></h2>
 <p>直到 <code class="docutils literal notranslate"><span class="pre">state</span></code> 字段为 <code class="docutils literal notranslate"><span class="pre">PIPELINE_STATE_SUCCEEDED</span></code>，才能获取到模型的名字。</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[51]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span>
@@ -815,8 +858,8 @@ upload: ../../../../../../../../tmp/aip/create-training-pipeline.tar.gz to s3://
 <div class="highlight"><pre>
 &#39;PIPELINE_STATE_SUCCEEDED&#39;
 {
-    &#39;name&#39;: &#39;projects/tokyo-rain-42/locations/default/trainingPipelines/ae4668ea-e95d-49d5-a783-6f20d13d14fb&#39;,
-    &#39;displayName&#39;: &#39;create-train-pipeline_20220721182038&#39;,
+    &#39;name&#39;: &#39;projects/tokyo-rain-42/locations/default/trainingPipelines/00b5f52e-a467-4932-a051-5fa7c0c15adb&#39;,
+    &#39;displayName&#39;: &#39;create-train-pipeline_20220812062200&#39;,
     &#39;trainingTaskDefinition&#39;: &#39;s3://aip/schema/trainingjob/definition/custom_task_1.0.0.yaml&#39;,
     &#39;trainingTaskInputs&#39;: {
         &#39;workerPoolSpecs&#39;: [
@@ -832,19 +875,32 @@ upload: ../../../../../../../../tmp/aip/create-training-pipeline.tar.gz to s3://
         ],
     },
     &#39;modelToUpload&#39;: {
-        &#39;name&#39;: &#39;projects/tokyo-rain-42/locations/default/models/418714a7-149a-43d1-9f57-af9160dfc840&#39;,
-        &#39;displayName&#39;: &#39;create-train-pipeline_20220721182038&#39;,
+        &#39;name&#39;: &#39;projects/tokyo-rain-42/locations/default/models/750e6e67-526c-44a3-b173-05ea95a9cc43&#39;,
+        &#39;displayName&#39;: &#39;create-train-pipeline_20220812062200&#39;,
         &#39;description&#39;: &#39;&#39;,
         &#39;metadataSchemaUri&#39;: &#39;&#39;,
         &#39;supportedExportFormats&#39;: [],
-        &#39;trainingPipeline&#39;: &#39;projects/tokyo-rain-42/locations/default/trainingPipelines/ae4668ea-e95d-49d5-a783-6f20d13d14fb&#39;,
+        &#39;trainingPipeline&#39;: &#39;projects/tokyo-rain-42/locations/default/trainingPipelines/00b5f52e-a467-4932-a051-5fa7c0c15adb&#39;,
         &#39;containerSpec&#39;: {
-            &#39;imageUri&#39;: &#39;IMAGE_URI&#39;,
+            &#39;imageUri&#39;: &#39;tensorflow/serving:latest&#39;,
             &#39;command&#39;: [],
             &#39;args&#39;: [],
-            &#39;env&#39;: [],
-            &#39;ports&#39;: [],
-            &#39;predictRoute&#39;: &#39;&#39;,
+            &#39;env&#39;: [
+                {
+                    &#39;name&#39;: &#39;MODEL_BASE_PATH&#39;,
+                    &#39;value&#39;: &#39;/app&#39;,
+                },
+                {
+                    &#39;name&#39;: &#39;MODEL_NAME&#39;,
+                    &#39;value&#39;: &#39;naive_model&#39;,
+                },
+            ],
+            &#39;ports&#39;: [
+                {
+                    &#39;containerPort&#39;: 8501,
+                },
+            ],
+            &#39;predictRoute&#39;: &#39;/v1/models/naive_model:predict&#39;,
             &#39;healthRoute&#39;: &#39;&#39;,
         },
         &#39;artifactUri&#39;: &#39;&#39;,
@@ -854,23 +910,23 @@ upload: ../../../../../../../../tmp/aip/create-training-pipeline.tar.gz to s3://
         &#39;deployedModels&#39;: [],
         &#39;etag&#39;: &#39;&#39;,
         &#39;labels&#39;: {},
-        &#39;createTime&#39;: &#39;2022-07-21T02:33:31.839922Z&#39;,
-        &#39;updateTime&#39;: &#39;2022-07-21T02:33:31.839922Z&#39;,
+        &#39;createTime&#39;: &#39;2022-08-11T23:14:27.802937Z&#39;,
+        &#39;updateTime&#39;: &#39;2022-08-11T23:14:27.802937Z&#39;,
     },
     &#39;state&#39;: &#39;PIPELINE_STATE_SUCCEEDED&#39;,
     &#39;labels&#39;: {},
-    &#39;createTime&#39;: &#39;2022-07-21T02:33:31.839883Z&#39;,
-    &#39;startTime&#39;: &#39;2022-07-21T10:33:32Z&#39;,
-    &#39;endTime&#39;: &#39;2022-07-21T10:33:40Z&#39;,
-    &#39;updateTime&#39;: &#39;2022-07-21T02:33:41.409994Z&#39;,
+    &#39;createTime&#39;: &#39;2022-08-11T23:14:27.802920Z&#39;,
+    &#39;startTime&#39;: &#39;2022-08-11T23:14:28Z&#39;,
+    &#39;endTime&#39;: &#39;2022-08-11T23:14:36Z&#39;,
+    &#39;updateTime&#39;: &#39;2022-08-11T23:14:36.845097Z&#39;,
 }
 </pre></div></div>
 </div>
 </div>
 <div class="section" id="获取「模型」的「名字」">
-<h2>获取「模型」的「名字」<a class="headerlink" href="#获取「模型」的「名字」" title="Permalink to this heading">#</a></h2>
+<h2>获取「模型」的「名字」<a class="headerlink" href="#获取「模型」的「名字」" title="此标题的永久链接">#</a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[52]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">MODEL_NAME</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s2">&quot;modelToUpload&quot;</span><span class="p">][</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
@@ -879,12 +935,12 @@ upload: ../../../../../../../../tmp/aip/create-training-pipeline.tar.gz to s3://
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[52]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&#39;projects/tokyo-rain-42/locations/default/models/418714a7-149a-43d1-9f57-af9160dfc840&#39;
+&#39;projects/tokyo-rain-42/locations/default/models/750e6e67-526c-44a3-b173-05ea95a9cc43&#39;
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
@@ -913,10 +969,10 @@ upload: ../../../../../../../../tmp/aip/create-training-pipeline.tar.gz to s3://
           <p class="prev-next-title">创建训练镜像</p>
       </div>
   </a>
-  <a class='right-next' id="next-link" href="../../reference/index.html" title="下一页 页">
+  <a class='right-next' id="next-link" href="deploy-model.html" title="下一页 页">
   <div class="prev-next-info">
       <p class="prev-next-subtitle">下一页</p>
-      <p class="prev-next-title">AIP 参考</p>
+      <p class="prev-next-title">部署模型</p>
   </div>
   <i class="fas fa-angle-right"></i>
   </a>
@@ -943,7 +999,7 @@ upload: ../../../../../../../../tmp/aip/create-training-pipeline.tar.gz to s3://
   
   <div class="footer-item">
     <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.0.2.<br>
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.1.0.<br>
 </p>
   </div>
   

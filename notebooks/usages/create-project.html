@@ -179,6 +179,11 @@
      创建训练流水线
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="deploy-model.html">
+     部署模型
+    </a>
+   </li>
   </ul>
  </li>
 </ul>
@@ -501,24 +506,24 @@ div.rendered_html tbody tr:hover {
 }
 </style>
 <div class="section" id="创建项目">
-<h1>创建项目<a class="headerlink" href="#创建项目" title="Permalink to this heading">#</a></h1>
+<h1>创建项目<a class="headerlink" href="#创建项目" title="此标题的永久链接">#</a></h1>
 <div class="section" id="导语">
-<h2>导语<a class="headerlink" href="#导语" title="Permalink to this heading">#</a></h2>
+<h2>导语<a class="headerlink" href="#导语" title="此标题的永久链接">#</a></h2>
 <p>此笔记旨在创建一个初始项目，方便进行后续操作与管理。</p>
 </div>
 <div class="section" id="发起「创建项目」请求">
-<h2>发起「创建项目」请求<a class="headerlink" href="#发起「创建项目」请求" title="Permalink to this heading">#</a></h2>
+<h2>发起「创建项目」请求<a class="headerlink" href="#发起「创建项目」请求" title="此标题的永久链接">#</a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">HOST</span> <span class="o">=</span> <span class="s2">&quot;http://localhost:5002&quot;</span>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">HOST</span> <span class="o">=</span> <span class="s2">&quot;https://aip-apis.nadileaf.com&quot;</span>
 <span class="n">PROJECT_ID</span> <span class="o">=</span> <span class="s2">&quot;tokyo-rain-42&quot;</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">devtools</span> <span class="kn">import</span> <span class="n">pprint</span>
@@ -542,12 +547,12 @@ div.rendered_html tbody tr:hover {
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 {
-    &#39;name&#39;: &#39;operations/70b7a479-944f-47f1-bef5-513f747e69ac&#39;,
+    &#39;name&#39;: &#39;operations/f65d3e46-d0c8-43c7-9d39-f5fea82e159f&#39;,
     &#39;metadata&#39;: {
         &#39;@type&#39;: &#39;type.googleapis.com/google.cloud.resourcemanager.v3.CreateProjectMetadata&#39;,
         &#39;gettable&#39;: False,
         &#39;ready&#39;: False,
-        &#39;createTime&#39;: &#39;2022-07-21T02:19:06.011826Z&#39;,
+        &#39;createTime&#39;: &#39;2022-08-11T22:21:44.295186Z&#39;,
     },
     &#39;done&#39;: False,
 }
@@ -555,10 +560,10 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="section" id="获取「操作ID」">
-<h2>获取「操作ID」<a class="headerlink" href="#获取「操作ID」" title="Permalink to this heading">#</a></h2>
+<h2>获取「操作ID」<a class="headerlink" href="#获取「操作ID」" title="此标题的永久链接">#</a></h2>
 <p>因为「创建项目」行为是个长操作，所以需要获取「操作ID」，以便后续查询「操作状态」。</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">OPERATION_NAME</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
@@ -567,20 +572,20 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&#39;operations/70b7a479-944f-47f1-bef5-513f747e69ac&#39;
+&#39;operations/f65d3e46-d0c8-43c7-9d39-f5fea82e159f&#39;
 </pre></div></div>
 </div>
 </div>
 <div class="section" id="查询「操作状态」">
-<h2>查询「操作状态」<a class="headerlink" href="#查询「操作状态」" title="Permalink to this heading">#</a></h2>
+<h2>查询「操作状态」<a class="headerlink" href="#查询「操作状态」" title="此标题的永久链接">#</a></h2>
 <p>直至 <code class="docutils literal notranslate"><span class="pre">done</span></code> 字段为 <code class="docutils literal notranslate"><span class="pre">True</span></code>，则表示操作完成。</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span>
@@ -603,28 +608,44 @@ div.rendered_html tbody tr:hover {
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 {
-    &#39;name&#39;: &#39;operations/70b7a479-944f-47f1-bef5-513f747e69ac&#39;,
+    &#39;name&#39;: &#39;operations/f65d3e46-d0c8-43c7-9d39-f5fea82e159f&#39;,
     &#39;metadata&#39;: {
         &#39;@type&#39;: &#39;type.googleapis.com/google.cloud.resourcemanager.v3.CreateProjectMetadata&#39;,
         &#39;gettable&#39;: False,
         &#39;ready&#39;: False,
-        &#39;createTime&#39;: &#39;2022-07-21T02:19:06.011826Z&#39;,
+        &#39;createTime&#39;: &#39;2022-08-11T22:21:44.295186Z&#39;,
     },
     &#39;done&#39;: True,
     &#39;response&#39;: {
         &#39;@type&#39;: &#39;type.googleapis.com/google.cloud.resourcemanager.v3.Project&#39;,
-        &#39;name&#39;: &#39;projects/2&#39;,
+        &#39;name&#39;: &#39;projects/1&#39;,
         &#39;parent&#39;: &#39;&#39;,
         &#39;projectId&#39;: &#39;tokyo-rain-42&#39;,
         &#39;state&#39;: &#39;ACTIVE&#39;,
         &#39;displayName&#39;: &#39;&#39;,
         &#39;etag&#39;: &#39;&#39;,
         &#39;labels&#39;: {},
-        &#39;createTime&#39;: &#39;2022-07-21T02:19:06.188691Z&#39;,
-        &#39;updateTime&#39;: &#39;2022-07-21T02:19:06.188691Z&#39;,
+        &#39;createTime&#39;: &#39;2022-08-11T22:21:45.949854Z&#39;,
+        &#39;updateTime&#39;: &#39;2022-08-11T22:21:45.949854Z&#39;,
     },
 }
 </pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
 </div>
 </div>
 </div>
@@ -674,7 +695,7 @@ div.rendered_html tbody tr:hover {
   
   <div class="footer-item">
     <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.0.2.<br>
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.1.0.<br>
 </p>
   </div>
   

@@ -42,6 +42,8 @@
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="索引" href="../../genindex.html" />
     <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="AIP 参考" href="../../reference/index.html" />
+    <link rel="prev" title="创建训练流水线" href="create-training-pipeline.html" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="docsearch:language" content="zh-CN">
   </head>
@@ -84,7 +86,7 @@
       
       <div class="navbar-center-item">
         <ul id="navbar-main-elements" class="navbar-nav">
-    <li class="toctree-l1 nav-item">
+    <li class="toctree-l1 current active nav-item">
  <a class="reference internal nav-link" href="../../user/index.html">
   用户指南
  </a>
@@ -146,7 +148,46 @@
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
   <div class="bd-toc-item active">
-    
+    <ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../user/concepts.html">
+   AIP 概念
+  </a>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="../../user/usage.html">
+   AIP 用例
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="create-project.html">
+     创建项目
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="create-training-image.html">
+     创建训练镜像
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="create-training-pipeline.html">
+     创建训练流水线
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     部署模型
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
   </div>
 </nav>
   </div>
@@ -172,6 +213,45 @@
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#创建端点（可选）">
    创建端点（可选）
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#获取「操作ID」">
+     获取「操作ID」
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#查询「操作状态」">
+     查询「操作状态」
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#设置端点">
+   设置端点
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id5">
+   部署模型
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id6">
+     获取「操作ID」
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id7">
+     查询「操作状态」
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#在线预测">
+   在线预测
   </a>
  </li>
 </ul>
@@ -450,57 +530,413 @@ div.rendered_html tbody tr:hover {
 }
 </style>
 <div class="section" id="部署模型">
-<h1>部署模型<a class="headerlink" href="#部署模型" title="Permalink to this heading">#</a></h1>
-<div class="section" id="创建端点（可选）">
-<h2>创建端点（可选）<a class="headerlink" href="#创建端点（可选）" title="Permalink to this heading">#</a></h2>
-<p>如果要将模型部署到现有端点，您可以跳过此步骤。</p>
+<h1>部署模型<a class="headerlink" href="#部署模型" title="此标题的永久链接">#</a></h1>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">HOST</span> <span class="o">=</span> <span class="s2">&quot;http://localhost:5002&quot;</span>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">HOST</span> <span class="o">=</span> <span class="s2">&quot;https://aip-apis.nadileaf.com&quot;</span>
 <span class="n">PROJECT_ID</span> <span class="o">=</span> <span class="s2">&quot;tokyo-rain-42&quot;</span>
 <span class="n">LOCATION</span> <span class="o">=</span> <span class="s2">&quot;default&quot;</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">MODEL_NAME</span> <span class="o">=</span> <span class="s1">&#39;projects/tokyo-rain-42/locations/default/models/418714a7-149a-43d1-9f57-af9160dfc840&#39;</span>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">MODEL_NAME</span> <span class="o">=</span> <span class="s2">&quot;projects/tokyo-rain-42/locations/default/models/750e6e67-526c-44a3-b173-05ea95a9cc43&quot;</span>
 </pre></div>
 </div>
+</div>
+<div class="section" id="创建端点（可选）">
+<h2>创建端点（可选）<a class="headerlink" href="#创建端点（可选）" title="此标题的永久链接">#</a></h2>
+<p>如果要将模型部署到现有端点，您可以跳过此步骤。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">devtools</span> <span class="kn">import</span> <span class="n">pprint</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">HOST</span><span class="si">}</span><span class="s2">/v1/projects/</span><span class="si">{</span><span class="n">PROJECT_ID</span><span class="si">}</span><span class="s2">/locations/</span><span class="si">{</span><span class="n">LOCATION</span><span class="si">}</span><span class="s2">/endpoints&quot;</span>
+
+<span class="n">payload</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span><span class="s2">&quot;display_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Test Endpoint&quot;</span><span class="p">})</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Content-Type&quot;</span><span class="p">:</span> <span class="s2">&quot;application/json&quot;</span><span class="p">}</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;POST&quot;</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">payload</span><span class="p">)</span>
+
+<span class="n">pprint</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{
+    &#39;name&#39;: (
+        &#39;projects/tokyo-rain-42/locations/default/endpoints/eb7be5d9-67e2-4f95-8e6d-27bce396be4a/operations/24a839f4-d&#39;
+        &#39;9ad-494c-86d9-18a970f42391&#39;
+    ),
+    &#39;metadata&#39;: {
+        &#39;@type&#39;: &#39;type.googleapis.com/google.cloud.aiplatform.v1.CreateEndpointOperationMetadata&#39;,
+        &#39;genericMetadata&#39;: {
+            &#39;partialFailures&#39;: [],
+            &#39;createTime&#39;: &#39;2022-08-11T23:24:36.153844Z&#39;,
+            &#39;updateTime&#39;: &#39;2022-08-11T23:24:36.153844Z&#39;,
+        },
+    },
+    &#39;done&#39;: False,
+}
+</pre></div></div>
+</div>
+<div class="section" id="获取「操作ID」">
+<h3>获取「操作ID」<a class="headerlink" href="#获取「操作ID」" title="此标题的永久链接">#</a></h3>
+<p>因为「创建项目」行为是个长操作，所以需要获取「操作ID」，以便后续查询「操作状态」。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">OPERATION_NAME</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
+<span class="n">OPERATION_NAME</span> <span class="o">=</span> <span class="s2">&quot;/&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">OPERATION_NAME</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">2</span><span class="p">:])</span>
+<span class="n">OPERATION_NAME</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&#39;operations/24a839f4-d9ad-494c-86d9-18a970f42391&#39;
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="查询「操作状态」">
+<h3>查询「操作状态」<a class="headerlink" href="#查询「操作状态」" title="此标题的永久链接">#</a></h3>
+<p>直至 <code class="docutils literal notranslate"><span class="pre">done</span></code> 字段为 <code class="docutils literal notranslate"><span class="pre">True</span></code>，则表示操作完成。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">from</span> <span class="nn">devtools</span> <span class="kn">import</span> <span class="n">pprint</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">HOST</span><span class="si">}</span><span class="s2">/v1/</span><span class="si">{</span><span class="n">OPERATION_NAME</span><span class="si">}</span><span class="s2">&quot;</span>
+
+<span class="n">payload</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">payload</span><span class="p">)</span>
+
+<span class="n">pprint</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{
+    &#39;name&#39;: &#39;operations/24a839f4-d9ad-494c-86d9-18a970f42391&#39;,
+    &#39;metadata&#39;: {
+        &#39;@type&#39;: &#39;type.googleapis.com/google.cloud.aiplatform.v1.CreateEndpointOperationMetadata&#39;,
+        &#39;genericMetadata&#39;: {
+            &#39;partialFailures&#39;: [],
+            &#39;createTime&#39;: &#39;2022-08-11T23:24:36.153844Z&#39;,
+            &#39;updateTime&#39;: &#39;2022-08-11T23:24:57.228814Z&#39;,
+        },
+    },
+    &#39;done&#39;: True,
+    &#39;response&#39;: {
+        &#39;@type&#39;: &#39;type.googleapis.com/google.cloud.aiplatform.v1.Endpoint&#39;,
+        &#39;name&#39;: &#39;projects/tokyo-rain-42/locations/default/endpoints/eb7be5d9-67e2-4f95-8e6d-27bce396be4a&#39;,
+        &#39;displayName&#39;: &#39;Test Endpoint&#39;,
+        &#39;description&#39;: &#39;&#39;,
+        &#39;deployedModels&#39;: [],
+        &#39;trafficSplit&#39;: {},
+        &#39;etag&#39;: &#39;&#39;,
+        &#39;labels&#39;: {},
+        &#39;network&#39;: &#39;&#39;,
+        &#39;enablePrivateServiceConnect&#39;: False,
+        &#39;modelDeploymentMonitoringJob&#39;: &#39;&#39;,
+        &#39;createTime&#39;: &#39;2022-08-11T23:24:57.197788Z&#39;,
+        &#39;updateTime&#39;: &#39;2022-08-11T23:24:57.197788Z&#39;,
+    },
+}
+</pre></div></div>
+</div>
+</div>
+</div>
+<div class="section" id="设置端点">
+<h2>设置端点<a class="headerlink" href="#设置端点" title="此标题的永久链接">#</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">ENDPOINT_NAME</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s2">&quot;response&quot;</span><span class="p">][</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
+<span class="c1"># ENDPOINT_NAME = &quot;projects/tokyo-rain-42/locations/default/endpoints/bf20588c-fd86-46f4-9975-3a1282b96315&quot;</span>
+<span class="n">ENDPOINT_NAME</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&#39;projects/tokyo-rain-42/locations/default/endpoints/eb7be5d9-67e2-4f95-8e6d-27bce396be4a&#39;
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>部署模型<a class="headerlink" href="#id5" title="此标题的永久链接">#</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[47]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">HOST</span><span class="si">}</span><span class="s2">/v1/</span><span class="si">{</span><span class="n">ENDPOINT_NAME</span><span class="si">}</span><span class="s2">:deployModel&quot;</span>
+
+<span class="n">payload</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;deployed_model&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;model&quot;</span><span class="p">:</span> <span class="n">MODEL_NAME</span><span class="p">,</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Content-Type&quot;</span><span class="p">:</span> <span class="s2">&quot;application/json&quot;</span><span class="p">}</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;POST&quot;</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">payload</span><span class="p">)</span>
+
+<span class="n">pprint</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{
+    &#39;name&#39;: (
+        &#39;projects/tokyo-rain-42/locations/default/endpoints/eb7be5d9-67e2-4f95-8e6d-27bce396be4a/operations/e52d4723-c&#39;
+        &#39;b2e-4b08-92ea-a62a25c71f75&#39;
+    ),
+    &#39;metadata&#39;: {
+        &#39;@type&#39;: &#39;type.googleapis.com/google.cloud.aiplatform.v1.DeployModelOperationMetadata&#39;,
+        &#39;genericMetadata&#39;: {
+            &#39;partialFailures&#39;: [],
+            &#39;createTime&#39;: &#39;2022-08-11T23:29:42.588570Z&#39;,
+            &#39;updateTime&#39;: &#39;2022-08-11T23:29:42.588570Z&#39;,
+        },
+    },
+    &#39;done&#39;: False,
+}
+</pre></div></div>
+</div>
+<div class="section" id="id6">
+<h3>获取「操作ID」<a class="headerlink" href="#id6" title="此标题的永久链接">#</a></h3>
+<p>因为「创建项目」行为是个长操作，所以需要获取「操作ID」，以便后续查询「操作状态」。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">OPERATION_NAME</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
+<span class="n">OPERATION_NAME</span> <span class="o">=</span> <span class="s2">&quot;/&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">OPERATION_NAME</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">2</span><span class="p">:])</span>
+<span class="n">OPERATION_NAME</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&#39;operations/e52d4723-cb2e-4b08-92ea-a62a25c71f75&#39;
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="id7">
+<h3>查询「操作状态」<a class="headerlink" href="#id7" title="此标题的永久链接">#</a></h3>
+<p>直至 <code class="docutils literal notranslate"><span class="pre">done</span></code> 字段为 <code class="docutils literal notranslate"><span class="pre">True</span></code>，则表示操作完成。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">from</span> <span class="nn">devtools</span> <span class="kn">import</span> <span class="n">pprint</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">HOST</span><span class="si">}</span><span class="s2">/v1/</span><span class="si">{</span><span class="n">OPERATION_NAME</span><span class="si">}</span><span class="s2">&quot;</span>
+
+<span class="n">payload</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">payload</span><span class="p">)</span>
+
+<span class="n">pprint</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{
+    &#39;name&#39;: &#39;operations/e52d4723-cb2e-4b08-92ea-a62a25c71f75&#39;,
+    &#39;metadata&#39;: {
+        &#39;@type&#39;: &#39;type.googleapis.com/google.cloud.aiplatform.v1.DeployModelOperationMetadata&#39;,
+        &#39;genericMetadata&#39;: {
+            &#39;partialFailures&#39;: [],
+            &#39;createTime&#39;: &#39;2022-08-11T23:29:42.588570Z&#39;,
+            &#39;updateTime&#39;: &#39;2022-08-11T23:29:42.588570Z&#39;,
+        },
+    },
+    &#39;done&#39;: True,
+    &#39;response&#39;: {
+        &#39;@type&#39;: &#39;type.googleapis.com/google.cloud.aiplatform.v1.DeployModelResponse&#39;,
+        &#39;deployedModel&#39;: {
+            &#39;id&#39;: &#39;ffeebb82-aea4-4b08-beca-4498603e2e20&#39;,
+            &#39;model&#39;: &#39;projects/tokyo-rain-42/locations/default/models/750e6e67-526c-44a3-b173-05ea95a9cc43&#39;,
+            &#39;displayName&#39;: &#39;&#39;,
+            &#39;serviceAccount&#39;: &#39;&#39;,
+            &#39;disableContainerLogging&#39;: False,
+            &#39;enableAccessLogging&#39;: False,
+            &#39;createTime&#39;: &#39;2022-08-11T23:29:43.321550Z&#39;,
+        },
+    },
+}
+</pre></div></div>
+</div>
+</div>
+</div>
+<div class="section" id="在线预测">
+<h2>在线预测<a class="headerlink" href="#在线预测" title="此标题的永久链接">#</a></h2>
+<p>比如 TensorFlow 的 Serving： <a class="reference external" href="https://www.tensorflow.org/tfx/serving/docker">https://www.tensorflow.org/tfx/serving/docker</a></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[52]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">HOST</span><span class="si">}</span><span class="s2">/v1/</span><span class="si">{</span><span class="n">ENDPOINT_NAME</span><span class="si">}</span><span class="s2">:predict&quot;</span>
+
+<span class="n">payload</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;instances&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">[</span>
+                <span class="mf">0.35850452793091736</span><span class="p">,</span>
+                <span class="mf">0.9274893704904338</span><span class="p">,</span>
+                <span class="mf">0.14409852387558053</span><span class="p">,</span>
+                <span class="mf">0.27501577087442575</span><span class="p">,</span>
+                <span class="mf">0.41792885848978445</span><span class="p">,</span>
+                <span class="mf">0.6635046639166394</span><span class="p">,</span>
+                <span class="mf">0.9002132115089717</span><span class="p">,</span>
+                <span class="mf">0.4018983258887462</span><span class="p">,</span>
+                <span class="mf">0.2402074709317984</span><span class="p">,</span>
+                <span class="mf">0.1849795949176375</span><span class="p">,</span>
+                <span class="mf">0.5397318215794611</span><span class="p">,</span>
+                <span class="mf">0.19347945325917804</span><span class="p">,</span>
+                <span class="mf">0.06977083804451178</span><span class="p">,</span>
+                <span class="mf">0.6451137824838984</span><span class="p">,</span>
+                <span class="mf">0.09835458799596963</span><span class="p">,</span>
+                <span class="mf">0.9111694981959119</span><span class="p">,</span>
+                <span class="mf">0.3226935472153444</span><span class="p">,</span>
+                <span class="mf">0.7426842969565828</span><span class="p">,</span>
+                <span class="mf">0.6677332658759303</span><span class="p">,</span>
+                <span class="mf">0.13485891137030714</span><span class="p">,</span>
+                <span class="mf">0.6897559050670786</span><span class="p">,</span>
+                <span class="mf">0.2143836402084356</span><span class="p">,</span>
+                <span class="mf">0.45485524692440316</span><span class="p">,</span>
+                <span class="mf">0.03013785077555997</span><span class="p">,</span>
+                <span class="mf">0.366213116664883</span><span class="p">,</span>
+                <span class="mf">0.9610827471164674</span><span class="p">,</span>
+                <span class="mf">0.016579209406623607</span><span class="p">,</span>
+                <span class="mf">0.40509157391539885</span><span class="p">,</span>
+                <span class="mf">0.29582289392551464</span><span class="p">,</span>
+                <span class="mf">0.7735093990056595</span><span class="p">,</span>
+                <span class="mf">0.589243470377184</span><span class="p">,</span>
+                <span class="mf">0.5430504526398211</span><span class="p">,</span>
+            <span class="p">],</span>
+            <span class="p">[</span>
+                <span class="mf">0.5146789724854888</span><span class="p">,</span>
+                <span class="mf">0.05733888050424507</span><span class="p">,</span>
+                <span class="mf">0.4573297623540814</span><span class="p">,</span>
+                <span class="mf">0.8474106297496059</span><span class="p">,</span>
+                <span class="mf">0.8944939366780679</span><span class="p">,</span>
+                <span class="mf">0.29380317838307124</span><span class="p">,</span>
+                <span class="mf">0.32613270845824816</span><span class="p">,</span>
+                <span class="mf">0.9587424380685627</span><span class="p">,</span>
+                <span class="mf">0.45681111589536516</span><span class="p">,</span>
+                <span class="mf">0.7314661194475954</span><span class="p">,</span>
+                <span class="mf">0.49758669023097857</span><span class="p">,</span>
+                <span class="mf">0.4862565450761265</span><span class="p">,</span>
+                <span class="mf">0.43325296293589155</span><span class="p">,</span>
+                <span class="mf">0.7568041528209037</span><span class="p">,</span>
+                <span class="mf">0.1327324081420197</span><span class="p">,</span>
+                <span class="mf">0.6496218333658519</span><span class="p">,</span>
+                <span class="mf">0.852160510080752</span><span class="p">,</span>
+                <span class="mf">0.3387045459941851</span><span class="p">,</span>
+                <span class="mf">0.21160715895265247</span><span class="p">,</span>
+                <span class="mf">0.05859423613801318</span><span class="p">,</span>
+                <span class="mf">0.8492249748250319</span><span class="p">,</span>
+                <span class="mf">0.7990251985960497</span><span class="p">,</span>
+                <span class="mf">0.8630577831558155</span><span class="p">,</span>
+                <span class="mf">0.02610678900477137</span><span class="p">,</span>
+                <span class="mf">0.27019536031659186</span><span class="p">,</span>
+                <span class="mf">0.031082936851031917</span><span class="p">,</span>
+                <span class="mf">0.6123543483232188</span><span class="p">,</span>
+                <span class="mf">0.17725051927607038</span><span class="p">,</span>
+                <span class="mf">0.05673852849249672</span><span class="p">,</span>
+                <span class="mf">0.0666100155200674</span><span class="p">,</span>
+                <span class="mf">0.3515054686453387</span><span class="p">,</span>
+                <span class="mf">0.7184345666249412</span><span class="p">,</span>
+            <span class="p">],</span>
+        <span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Content-Type&quot;</span><span class="p">:</span> <span class="s2">&quot;application/json&quot;</span><span class="p">}</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;POST&quot;</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">payload</span><span class="p">)</span>
+
+<span class="n">pprint</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{
+    &#39;predictions&#39;: [
+        [0.505704],
+        [
+            0.937642038,
+        ],
+    ],
+    &#39;deployedModelId&#39;: &#39;&#39;,
+    &#39;model&#39;: &#39;&#39;,
+    &#39;modelDisplayName&#39;: &#39;&#39;,
+}
+</pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre><span></span>
 </pre></div>
 </div>
 </div>
@@ -515,6 +951,20 @@ div.rendered_html tbody tr:hover {
               <footer class="bd-footer-article">
                   <!-- Previous / next buttons -->
 <div class='prev-next-area'>
+  <a class='left-prev' id="prev-link" href="create-training-pipeline.html" title="上一页 页">
+      <i class="fas fa-angle-left"></i>
+      <div class="prev-next-info">
+          <p class="prev-next-subtitle">上一页</p>
+          <p class="prev-next-title">创建训练流水线</p>
+      </div>
+  </a>
+  <a class='right-next' id="next-link" href="../../reference/index.html" title="下一页 页">
+  <div class="prev-next-info">
+      <p class="prev-next-subtitle">下一页</p>
+      <p class="prev-next-title">AIP 参考</p>
+  </div>
+  <i class="fas fa-angle-right"></i>
+  </a>
 </div>
               </footer>
               
@@ -538,7 +988,7 @@ div.rendered_html tbody tr:hover {
   
   <div class="footer-item">
     <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.0.2.<br>
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.1.0.<br>
 </p>
   </div>
   

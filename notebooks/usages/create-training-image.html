@@ -179,6 +179,11 @@
      创建训练流水线
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="deploy-model.html">
+     部署模型
+    </a>
+   </li>
   </ul>
  </li>
 </ul>
@@ -250,16 +255,16 @@
               <article class="bd-article" role="main">
                 
   <div class="section" id="创建训练镜像">
-<h1>创建训练镜像<a class="headerlink" href="#创建训练镜像" title="Permalink to this heading">#</a></h1>
+<h1>创建训练镜像<a class="headerlink" href="#创建训练镜像" title="此标题的永久链接">#</a></h1>
 <div class="section" id="创建项目目录">
-<h2>创建项目目录<a class="headerlink" href="#创建项目目录" title="Permalink to this heading">#</a></h2>
+<h2>创建项目目录<a class="headerlink" href="#创建项目目录" title="此标题的永久链接">#</a></h2>
 <p>我们先创建一个空文件夹，作为项目根目录。</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>mkdir -p /tmp/aip-images/create-training-image
 </pre></div>
 </div>
 </div>
 <div class="section" id="创建项目配置">
-<h2>创建项目配置<a class="headerlink" href="#创建项目配置" title="Permalink to this heading">#</a></h2>
+<h2>创建项目配置<a class="headerlink" href="#创建项目配置" title="此标题的永久链接">#</a></h2>
 <p>编写项目配置 <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> 如下：</p>
 <div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[tool.poetry]</span><span class="w"></span>
 <span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;create-training-image&quot;</span><span class="w"></span>
@@ -281,14 +286,14 @@
 </div>
 </div>
 <div class="section" id="创建库依赖锁">
-<h2>创建库依赖锁<a class="headerlink" href="#创建库依赖锁" title="Permalink to this heading">#</a></h2>
+<h2>创建库依赖锁<a class="headerlink" href="#创建库依赖锁" title="此标题的永久链接">#</a></h2>
 <p>并根据配置文件 <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> 生成库依赖锁 <code class="docutils literal notranslate"><span class="pre">poetry.lock</span></code>。 生成命令如下：</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>poetry lock --no-update
 </pre></div>
 </div>
 </div>
 <div class="section" id="创建构建配置">
-<h2>创建构建配置<a class="headerlink" href="#创建构建配置" title="Permalink to this heading">#</a></h2>
+<h2>创建构建配置<a class="headerlink" href="#创建构建配置" title="此标题的永久链接">#</a></h2>
 <p>编写构建配置 <code class="docutils literal notranslate"><span class="pre">Dockerfile</span></code> 如下：</p>
 <div class="highlight-dockerfile notranslate"><div class="highlight"><pre><span></span><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.9</span>
 
@@ -323,7 +328,7 @@
 <p>这里要注意，基本镜像不能选择 <code class="docutils literal notranslate"><span class="pre">Alpine</span> <span class="pre">Linux</span></code>，因为他使用了 <code class="docutils literal notranslate"><span class="pre">musl</span> <span class="pre">libc</span></code> 而不是 <code class="docutils literal notranslate"><span class="pre">glibc</span></code>，会导致 <code class="docutils literal notranslate"><span class="pre">numpy</span></code> 等依赖无法正常安装。</p>
 </div>
 <div class="section" id="推送镜像">
-<h2>推送镜像<a class="headerlink" href="#推送镜像" title="Permalink to this heading">#</a></h2>
+<h2>推送镜像<a class="headerlink" href="#推送镜像" title="此标题的永久链接">#</a></h2>
 <p>推送镜像到镜像仓库 <code class="docutils literal notranslate"><span class="pre">Harbor</span></code> 上。 此处 <code class="docutils literal notranslate"><span class="pre">aip-images</span></code> 是 <code class="docutils literal notranslate"><span class="pre">AIP</span></code> 的项目，用户可以选择路径。</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>docker build --tag harbor.nadileaf.com/aip-images/create-training-image:0.1.1 .
 docker push harbor.nadileaf.com/aip-images/create-training-image:0.1.1
@@ -377,7 +382,7 @@ docker push harbor.nadileaf.com/aip-images/create-training-image:0.1.1
   
   <div class="footer-item">
     <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.0.2.<br>
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.1.0.<br>
 </p>
   </div>
   
