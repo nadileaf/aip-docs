@@ -42,8 +42,6 @@
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="索引" href="../../genindex.html" />
     <link rel="search" title="搜索" href="../../search.html" />
-    <link rel="next" title="部署模型" href="deploy-model.html" />
-    <link rel="prev" title="创建训练镜像" href="create-training-image.html" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="docsearch:language" content="zh-CN">
   </head>
@@ -86,7 +84,7 @@
       
       <div class="navbar-center-item">
         <ul id="navbar-main-elements" class="navbar-nav">
-    <li class="toctree-l1 current active nav-item">
+    <li class="toctree-l1 nav-item">
  <a class="reference internal nav-link" href="../../user/index.html">
   用户指南
  </a>
@@ -148,46 +146,7 @@
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
   <div class="bd-toc-item active">
-    <ul class="current nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../../user/concepts.html">
-   AIP 概念
-  </a>
- </li>
- <li class="toctree-l1 current active has-children">
-  <a class="reference internal" href="../../user/usage.html">
-   AIP 用例
-  </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
-  <label for="toctree-checkbox-1">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul class="current">
-   <li class="toctree-l2">
-    <a class="reference internal" href="create-project.html">
-     创建项目
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="create-training-image.html">
-     创建训练镜像
-    </a>
-   </li>
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
-     创建训练流水线
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="deploy-model.html">
-     部署模型
-    </a>
-   </li>
-  </ul>
- </li>
-</ul>
-
+    
   </div>
 </nav>
   </div>
@@ -673,7 +632,7 @@ upload: ../../../../../../../../tmp/aip/create-training-pipeline.tar.gz to s3://
 
 <span class="n">MACHINE_TYPE</span> <span class="o">=</span> <span class="s2">&quot;TBD&quot;</span>
 <span class="n">ACCELERATOR_TYPE</span> <span class="o">=</span> <span class="s2">&quot;ACCELERATOR_TYPE_UNSPECIFIED&quot;</span>
-<span class="n">ACCELERATOR_COUNT</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># number of CPUs</span>
+<span class="n">ACCELERATOR_COUNT</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="n">CONTAINER_URL</span> <span class="o">=</span> <span class="s2">&quot;harbor.nadileaf.com/aip-images/create-training-image:0.1.1&quot;</span>
 <span class="n">PYTHON_PACKAGE_URI</span> <span class="o">=</span> <span class="s2">&quot;s3://aip-demo/usages/create-training-pipeline.tar.gz&quot;</span>
 <span class="n">PYTHON_MODULE_NAME</span> <span class="o">=</span> <span class="s2">&quot;create-training-pipeline.aip_task&quot;</span>
@@ -970,20 +929,6 @@ upload: ../../../../../../../../tmp/aip/create-training-pipeline.tar.gz to s3://
               <footer class="bd-footer-article">
                   <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-  <a class='left-prev' id="prev-link" href="create-training-image.html" title="上一页 页">
-      <i class="fas fa-angle-left"></i>
-      <div class="prev-next-info">
-          <p class="prev-next-subtitle">上一页</p>
-          <p class="prev-next-title">创建训练镜像</p>
-      </div>
-  </a>
-  <a class='right-next' id="next-link" href="deploy-model.html" title="下一页 页">
-  <div class="prev-next-info">
-      <p class="prev-next-subtitle">下一页</p>
-      <p class="prev-next-title">部署模型</p>
-  </div>
-  <i class="fas fa-angle-right"></i>
-  </a>
 </div>
               </footer>
               
