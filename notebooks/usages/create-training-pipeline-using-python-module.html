@@ -543,6 +543,16 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="section" id="编写训练代码">
 <h2>编写训练代码<a class="headerlink" href="#编写训练代码" title="此标题的永久链接">#</a></h2>
+<p>本实例中，我们使用 <code class="docutils literal notranslate"><span class="pre">/tmp/aip</span></code> 作为项目的根目录，并在其中创建一个叫 <code class="docutils literal notranslate"><span class="pre">create-training-pipeline</span></code> 的模块。 模块内部包含一个 <code class="docutils literal notranslate"><span class="pre">aip_task.py</span></code> 文件，作为我们的程序入口。 所以目录结构的示意如下：</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>.                            # 项目的根目录
+├── ...
+├── create-training-pipeline # 模块的根目录
+│   ├── __init__.py          # 标记此文件夹是一个 Python 模块
+│   └── aip_task.py          # 期望的程序入口
+└── ...
+</pre></div>
+</div>
+<p>所以我们先来创建项目和模块：</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
