@@ -43,7 +43,7 @@
     <link rel="index" title="索引" href="../../genindex.html" />
     <link rel="search" title="搜索" href="../../search.html" />
     <link rel="next" title="创建训练流水线（Python 模块版本）" href="create-training-pipeline-using-python-module.html" />
-    <link rel="prev" title="创建训练镜像" href="create-training-image.html" />
+    <link rel="prev" title="创建训练映像" href="create-training-image.html" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="docsearch:language" content="zh-CN">
   </head>
@@ -110,6 +110,12 @@
  </a>
 </li>
 
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../contacts.html">
+  AIP 管理员
+ </a>
+</li>
+
     
 </ul>
       </div>
@@ -148,18 +154,69 @@
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
   <div class="bd-toc-item active">
-    <ul class="current nav bd-sidenav">
+    <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  基础
+ </span>
+</p>
+<ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="../../user/concepts.html">
    AIP 概念
   </a>
  </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  训练
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../user/training.html">
+   使用自定义训练创建模型
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../user/training.create-training-pipeline.html">
+     创建训练流水线
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../user/training.create-custom-container.html">
+     创建用于训练的自定义容器映像
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../user/training.create-python-pre-built-container.html">
+     为预构建容器创建一个 Python 训练应用 (TBD)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../user/training.monitor-debug-interactive-shell.html">
+     使用交互式 shell 监控和调试训练 (TBD)
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  用例
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
  <li class="toctree-l1 current active has-children">
   <a class="reference internal" href="../../user/usage.html">
    AIP 用例
   </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
-  <label for="toctree-checkbox-1">
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -171,7 +228,7 @@
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="create-training-image.html">
-     创建训练镜像
+     创建训练映像
     </a>
    </li>
    <li class="toctree-l2 current active">
@@ -533,7 +590,7 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="section" id="发起「创建训练流水线」请求">
 <h2>发起「创建训练流水线」请求<a class="headerlink" href="#发起「创建训练流水线」请求" title="此标题的永久链接">#</a></h2>
-<p>我们使用 <code class="docutils literal notranslate"><span class="pre">IMAGE_URL</span></code> 作为容器镜像的 URL，并执行 <code class="docutils literal notranslate"><span class="pre">COMMAND</span></code> 命令以及 <code class="docutils literal notranslate"><span class="pre">ARGS</span></code> 参数。</p>
+<p>我们使用 <code class="docutils literal notranslate"><span class="pre">IMAGE_URL</span></code> 作为容器映像的 URL，并执行 <code class="docutils literal notranslate"><span class="pre">COMMAND</span></code> 命令以及 <code class="docutils literal notranslate"><span class="pre">ARGS</span></code> 参数。</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
@@ -542,7 +599,7 @@ div.rendered_html tbody tr:hover {
 
 <span class="n">MACHINE_TYPE</span> <span class="o">=</span> <span class="s2">&quot;TBD&quot;</span>
 <span class="n">ACCELERATOR_TYPE</span> <span class="o">=</span> <span class="s2">&quot;ACCELERATOR_TYPE_UNSPECIFIED&quot;</span>
-<span class="n">ACCELERATOR_COUNT</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># number of CPUs</span>
+<span class="n">ACCELERATOR_COUNT</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># number of GPUs</span>
 
 <span class="n">IMAGE_URL</span> <span class="o">=</span> <span class="s2">&quot;harbor.nadileaf.com/aip-images/create-training-image:0.1.1&quot;</span>
 <span class="n">COMMAND</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;echo&quot;</span><span class="p">]</span>
@@ -854,7 +911,7 @@ div.rendered_html tbody tr:hover {
       <i class="fas fa-angle-left"></i>
       <div class="prev-next-info">
           <p class="prev-next-subtitle">上一页</p>
-          <p class="prev-next-title">创建训练镜像</p>
+          <p class="prev-next-title">创建训练映像</p>
       </div>
   </a>
   <a class='right-next' id="next-link" href="create-training-pipeline-using-python-module.html" title="下一页 页">

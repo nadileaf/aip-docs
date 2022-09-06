@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>创建训练镜像 &#8212; AIP  文档</title>
+    <title>创建训练映像 &#8212; AIP  文档</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -110,6 +110,12 @@
  </a>
 </li>
 
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../contacts.html">
+  AIP 管理员
+ </a>
+</li>
+
     
 </ul>
       </div>
@@ -148,18 +154,69 @@
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
   <div class="bd-toc-item active">
-    <ul class="current nav bd-sidenav">
+    <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  基础
+ </span>
+</p>
+<ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="../../user/concepts.html">
    AIP 概念
   </a>
  </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  训练
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../user/training.html">
+   使用自定义训练创建模型
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../user/training.create-training-pipeline.html">
+     创建训练流水线
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../user/training.create-custom-container.html">
+     创建用于训练的自定义容器映像
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../user/training.create-python-pre-built-container.html">
+     为预构建容器创建一个 Python 训练应用 (TBD)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../user/training.monitor-debug-interactive-shell.html">
+     使用交互式 shell 监控和调试训练 (TBD)
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  用例
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
  <li class="toctree-l1 current active has-children">
   <a class="reference internal" href="../../user/usage.html">
    AIP 用例
   </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
-  <label for="toctree-checkbox-1">
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -171,7 +228,7 @@
    </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     创建训练镜像
+     创建训练映像
     </a>
    </li>
    <li class="toctree-l2">
@@ -236,8 +293,8 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#推送镜像">
-   推送镜像
+  <a class="reference internal nav-link" href="#推送映像">
+   推送映像
   </a>
  </li>
 </ul>
@@ -259,8 +316,8 @@
               
               <article class="bd-article" role="main">
                 
-  <div class="section" id="创建训练镜像">
-<h1>创建训练镜像<a class="headerlink" href="#创建训练镜像" title="此标题的永久链接">#</a></h1>
+  <div class="section" id="创建训练映像">
+<h1>创建训练映像<a class="headerlink" href="#创建训练映像" title="此标题的永久链接">#</a></h1>
 <div class="section" id="创建项目目录">
 <h2>创建项目目录<a class="headerlink" href="#创建项目目录" title="此标题的永久链接">#</a></h2>
 <p>我们先创建一个空文件夹，作为项目根目录。</p>
@@ -330,11 +387,11 @@
 <span class="k">ENTRYPOINT</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;/usr/local/bin/_entrypoint.sh&quot;</span><span class="p">]</span>
 </pre></div>
 </div>
-<p>这里要注意，基本镜像不能选择 <code class="docutils literal notranslate"><span class="pre">Alpine</span> <span class="pre">Linux</span></code>，因为他使用了 <code class="docutils literal notranslate"><span class="pre">musl</span> <span class="pre">libc</span></code> 而不是 <code class="docutils literal notranslate"><span class="pre">glibc</span></code>，会导致 <code class="docutils literal notranslate"><span class="pre">numpy</span></code> 等依赖无法正常安装。</p>
+<p>这里要注意，基本映像不能选择 <code class="docutils literal notranslate"><span class="pre">Alpine</span> <span class="pre">Linux</span></code>，因为他使用了 <code class="docutils literal notranslate"><span class="pre">musl</span> <span class="pre">libc</span></code> 而不是 <code class="docutils literal notranslate"><span class="pre">glibc</span></code>，会导致 <code class="docutils literal notranslate"><span class="pre">numpy</span></code> 等依赖无法正常安装。</p>
 </div>
-<div class="section" id="推送镜像">
-<h2>推送镜像<a class="headerlink" href="#推送镜像" title="此标题的永久链接">#</a></h2>
-<p>推送镜像到镜像仓库 <code class="docutils literal notranslate"><span class="pre">Harbor</span></code> 上。 此处 <code class="docutils literal notranslate"><span class="pre">aip-images</span></code> 是 <code class="docutils literal notranslate"><span class="pre">AIP</span></code> 的项目，用户可以选择路径。</p>
+<div class="section" id="推送映像">
+<h2>推送映像<a class="headerlink" href="#推送映像" title="此标题的永久链接">#</a></h2>
+<p>推送映像到映像仓库 <code class="docutils literal notranslate"><span class="pre">Harbor</span></code> 上。 此处 <code class="docutils literal notranslate"><span class="pre">aip-images</span></code> 是 <code class="docutils literal notranslate"><span class="pre">AIP</span></code> 的项目，用户可以选择路径。</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>docker build --tag harbor.nadileaf.com/aip-images/create-training-image:0.1.1 .
 docker push harbor.nadileaf.com/aip-images/create-training-image:0.1.1
 </pre></div>

@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AIP 用例 &#8212; AIP  文档</title>
+    <title>创建用于训练的自定义容器映像 &#8212; AIP  文档</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -40,8 +40,8 @@
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
-    <link rel="next" title="创建项目" href="../notebooks/usages/create-project.html" />
-    <link rel="prev" title="使用交互式 shell 监控和调试训练 (TBD)" href="training.monitor-debug-interactive-shell.html" />
+    <link rel="next" title="为预构建容器创建一个 Python 训练应用 (TBD)" href="training.create-python-pre-built-container.html" />
+    <link rel="prev" title="创建训练流水线" href="training.create-training-pipeline.html" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="docsearch:language" content="zh-CN">
   </head>
@@ -169,24 +169,24 @@
   训练
  </span>
 </p>
-<ul class="nav bd-sidenav">
- <li class="toctree-l1 has-children">
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active has-children">
   <a class="reference internal" href="training.html">
    使用自定义训练创建模型
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
   <label for="toctree-checkbox-1">
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul>
+  <ul class="current">
    <li class="toctree-l2">
     <a class="reference internal" href="training.create-training-pipeline.html">
      创建训练流水线
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="training.create-custom-container.html">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
      创建用于训练的自定义容器映像
     </a>
    </li>
@@ -208,12 +208,12 @@
   用例
  </span>
 </p>
-<ul class="current nav bd-sidenav">
- <li class="toctree-l1 current active has-children">
-  <a class="current reference internal" href="#">
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="usage.html">
    AIP 用例
   </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
   <label for="toctree-checkbox-2">
    <i class="fas fa-chevron-down">
    </i>
@@ -264,9 +264,29 @@
     
     <div class="toc-item">
       
+<div class="tocsection onthispage mt-5 pt-1 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
 
 <nav id="bd-toc-nav">
-    
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   引言
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   创建自定义容器映像
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#container-registry">
+   将容器推送到 Container Registry
+  </a>
+ </li>
+</ul>
+
 </nav>
     </div>
     
@@ -284,16 +304,57 @@
               
               <article class="bd-article" role="main">
                 
-  <div class="section" id="aip">
-<h1>AIP 用例<a class="headerlink" href="#aip" title="此标题的永久链接">#</a></h1>
-<div class="toctree-wrapper compound">
+  <div class="section" id="training-create-custom-container">
+<span id="id1"></span><h1>创建用于训练的自定义容器映像<a class="headerlink" href="#training-create-custom-container" title="此标题的永久链接">#</a></h1>
+<div class="section" id="id2">
+<h2>引言<a class="headerlink" href="#id2" title="此标题的永久链接">#</a></h2>
+<p>使用自定义容器映像可为 AIP 中的训练提供最大的灵活性。
+如需了解使用自定义容器映像与
+<a class="reference internal" href="training.create-python-pre-built-container.html#training-create-python-pre-built-container"><span class="std std-ref">将 Python 训练应用与预构建容器搭配使用</span></a>
+的区别，请参阅 <a class="reference internal" href="training.create-training-pipeline.html#training-choose-a-training-code-structure"><span class="std std-ref">选择训练代码结构</span></a>。</p>
+<p>本指南逐步演示以下步骤：</p>
+<ol class="arabic simple">
+<li><p>创建自定义容器：</p>
+<ol class="loweralpha simple">
+<li><p>编写一个 Dockerfile，用于设置容器以使用 Vertex AI，并包含训练应用所需的依赖项。</p></li>
+<li><p>在本地构建和运行 Docker 容器。</p></li>
+</ol>
+</li>
+<li><p>将容器映像推送到 Container Registry。</p></li>
+</ol>
+</div>
+<div class="section" id="id3">
+<h2>创建自定义容器映像<a class="headerlink" href="#id3" title="此标题的永久链接">#</a></h2>
+<p>我们建议通过两个可能的工作流创建自定义容器映像：</p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../notebooks/usages/create-project.html">创建项目</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../notebooks/usages/create-training-image.html">创建训练映像</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../notebooks/usages/create-training-pipeline-using-container.html">创建训练流水线（容器版本）</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../notebooks/usages/create-training-pipeline-using-python-module.html">创建训练流水线（Python 模块版本）</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../notebooks/usages/deploy-model.html">部署模型</a></li>
+<li><p>编写训练代码。然后，编写 Dockerfile 并基于其构建容器映像。最后，在本地测试容器。</p>
+<p>此工作流提供了更大的灵活性，因为您可以根据需要自定义容器映像。</p>
+</li>
+<li><p>(TBD) 编写训练代码。然后，使用命令行，根据您的训练代码构建和测试自定义容器映像，而无需自行编写 Dockerfile。</p>
+<p>如果您不熟悉 Docker，则此工作流可能更直接。如果您按照此工作流操作，则可以跳过本部分的其余内容。</p>
+</li>
 </ul>
+<p>本部分的其余内容演示了前一种工作流的示例。</p>
+<div class="section" id="id4">
+<h3>训练代码<a class="headerlink" href="#id4" title="此标题的永久链接">#</a></h3>
+<p>您可以使用任何编程语言的依赖项编写训练代码。</p>
+</div>
+<div class="section" id="dockerfile">
+<h3>创建 Dockerfile<a class="headerlink" href="#dockerfile" title="此标题的永久链接">#</a></h3>
+<p>TODO.</p>
+</div>
+<div class="section" id="id5">
+<h3>构建容器映像<a class="headerlink" href="#id5" title="此标题的永久链接">#</a></h3>
+<p>TODO.</p>
+</div>
+<div class="section" id="id6">
+<h3>在本地运行容器（可选）<a class="headerlink" href="#id6" title="此标题的永久链接">#</a></h3>
+<p>TODO.</p>
+</div>
+</div>
+<div class="section" id="container-registry">
+<h2>将容器推送到 Container Registry<a class="headerlink" href="#container-registry" title="此标题的永久链接">#</a></h2>
+<p>TODO.</p>
 </div>
 </div>
 
@@ -305,17 +366,17 @@
               <footer class="bd-footer-article">
                   <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-  <a class='left-prev' id="prev-link" href="training.monitor-debug-interactive-shell.html" title="上一页 页">
+  <a class='left-prev' id="prev-link" href="training.create-training-pipeline.html" title="上一页 页">
       <i class="fas fa-angle-left"></i>
       <div class="prev-next-info">
           <p class="prev-next-subtitle">上一页</p>
-          <p class="prev-next-title">使用交互式 shell 监控和调试训练 (TBD)</p>
+          <p class="prev-next-title">创建训练流水线</p>
       </div>
   </a>
-  <a class='right-next' id="next-link" href="../notebooks/usages/create-project.html" title="下一页 页">
+  <a class='right-next' id="next-link" href="training.create-python-pre-built-container.html" title="下一页 页">
   <div class="prev-next-info">
       <p class="prev-next-subtitle">下一页</p>
-      <p class="prev-next-title">创建项目</p>
+      <p class="prev-next-title">为预构建容器创建一个 Python 训练应用 (TBD)</p>
   </div>
   <i class="fas fa-angle-right"></i>
   </a>

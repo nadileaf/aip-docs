@@ -108,6 +108,12 @@
  </a>
 </li>
 
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../contacts.html">
+  AIP 管理员
+ </a>
+</li>
+
     
 </ul>
       </div>
@@ -146,18 +152,69 @@
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
   <div class="bd-toc-item active">
-    <ul class="nav bd-sidenav">
+    <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  基础
+ </span>
+</p>
+<ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="concepts.html">
    AIP 概念
   </a>
  </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  训练
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="training.html">
+   使用自定义训练创建模型
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="training.create-training-pipeline.html">
+     创建训练流水线
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="training.create-custom-container.html">
+     创建用于训练的自定义容器映像
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="training.create-python-pre-built-container.html">
+     为预构建容器创建一个 Python 训练应用 (TBD)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="training.monitor-debug-interactive-shell.html">
+     使用交互式 shell 监控和调试训练 (TBD)
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  用例
+ </span>
+</p>
+<ul class="nav bd-sidenav">
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="usage.html">
    AIP 用例
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
-  <label for="toctree-checkbox-1">
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -169,7 +226,7 @@
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../notebooks/usages/create-training-image.html">
-     创建训练镜像
+     创建训练映像
     </a>
    </li>
    <li class="toctree-l2">
@@ -230,9 +287,89 @@
   <div class="section" id="aip">
 <span id="user"></span><h1>AIP 用户指南<a class="headerlink" href="#aip" title="此标题的永久链接">#</a></h1>
 <div class="toctree-wrapper compound">
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">基础</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="concepts.html">AIP 概念</a></li>
-<li class="toctree-l1"><a class="reference internal" href="usage.html">AIP 用例</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">训练</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="training.html">使用自定义训练创建模型</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="training.create-training-pipeline.html">创建训练流水线</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="training.create-training-pipeline.html#id2">术语表</a></li>
+<li class="toctree-l3"><a class="reference internal" href="training.create-training-pipeline.html#training-choose-a-training-code-structure">选择训练代码结构</a></li>
+<li class="toctree-l3"><a class="reference internal" href="training.create-training-pipeline.html#id4">自定义作业</a></li>
+<li class="toctree-l3"><a class="reference internal" href="training.create-training-pipeline.html#id5">模型上传</a></li>
+<li class="toctree-l3"><a class="reference internal" href="training.create-training-pipeline.html#tbd">监控训练 (TBD)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="training.create-custom-container.html">创建用于训练的自定义容器映像</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="training.create-custom-container.html#id2">引言</a></li>
+<li class="toctree-l3"><a class="reference internal" href="training.create-custom-container.html#id3">创建自定义容器映像</a></li>
+<li class="toctree-l3"><a class="reference internal" href="training.create-custom-container.html#container-registry">将容器推送到 Container Registry</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="training.create-python-pre-built-container.html">为预构建容器创建一个 Python 训练应用 (TBD)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="training.monitor-debug-interactive-shell.html">使用交互式 shell 监控和调试训练 (TBD)</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">用例</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">AIP 用例</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/usages/create-project.html">创建项目</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../notebooks/usages/create-project.html#导语">导语</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../notebooks/usages/create-project.html#发起「创建项目」请求">发起「创建项目」请求</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../notebooks/usages/create-project.html#获取「操作ID」">获取「操作ID」</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../notebooks/usages/create-project.html#查询「操作状态」">查询「操作状态」</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/usages/create-training-image.html">创建训练映像</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../notebooks/usages/create-training-image.html#创建项目目录">创建项目目录</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../notebooks/usages/create-training-image.html#创建项目配置">创建项目配置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../notebooks/usages/create-training-image.html#创建库依赖锁">创建库依赖锁</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../notebooks/usages/create-training-image.html#创建构建配置">创建构建配置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../notebooks/usages/create-training-image.html#推送映像">推送映像</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/usages/create-training-pipeline-using-container.html">创建训练流水线（容器版本）</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../notebooks/usages/create-training-pipeline-using-container.html#导语">导语</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../notebooks/usages/create-training-pipeline-using-container.html#发起「创建训练流水线」请求">发起「创建训练流水线」请求</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../notebooks/usages/create-training-pipeline-using-container.html#获取「训练流水线」的「名字」">获取「训练流水线」的「名字」</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../notebooks/usages/create-training-pipeline-using-container.html#查询「训练流水线」的「状态」">查询「训练流水线」的「状态」</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../notebooks/usages/create-training-pipeline-using-container.html#获取「模型」的「名字」">获取「模型」的「名字」</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/usages/create-training-pipeline-using-python-module.html">创建训练流水线（Python 模块版本）</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../notebooks/usages/create-training-pipeline-using-python-module.html#导语">导语</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../notebooks/usages/create-training-pipeline-using-python-module.html#编写训练代码">编写训练代码</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../notebooks/usages/create-training-pipeline-using-python-module.html#打包训练代码">打包训练代码</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../notebooks/usages/create-training-pipeline-using-python-module.html#发起「创建训练流水线」请求">发起「创建训练流水线」请求</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../notebooks/usages/create-training-pipeline-using-python-module.html#获取「训练流水线」的「名字」">获取「训练流水线」的「名字」</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../notebooks/usages/create-training-pipeline-using-python-module.html#查询「训练流水线」的「状态」">查询「训练流水线」的「状态」</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../notebooks/usages/create-training-pipeline-using-python-module.html#获取「模型」的「名字」">获取「模型」的「名字」</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/usages/deploy-model.html">部署模型</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../notebooks/usages/deploy-model.html#创建端点（可选）">创建端点（可选）</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../notebooks/usages/deploy-model.html#获取「操作ID」">获取「操作ID」</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../notebooks/usages/deploy-model.html#查询「操作状态」">查询「操作状态」</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../notebooks/usages/deploy-model.html#设置端点">设置端点</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../notebooks/usages/deploy-model.html#id5">部署模型</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../notebooks/usages/deploy-model.html#id6">获取「操作ID」</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../notebooks/usages/deploy-model.html#id7">查询「操作状态」</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../notebooks/usages/deploy-model.html#在线预测">在线预测</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
