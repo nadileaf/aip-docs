@@ -582,8 +582,7 @@
 <span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span><span class="w"></span>
 </pre></div>
 </div>
-<p>以下示例展示了如何使用定义创建自己的 JSON 行文件。
-为了便于阅读，示例包括换行符。在 JSON 文件中，请仅在每个文档后面添加换行符。</p>
+<p>以下示例展示了如何使用定义创建自己的 JSON 行文件。</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
 <span class="w">  </span><span class="nt">&quot;jsonContent&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span><span class="p">,</span><span class="w"></span>
@@ -598,8 +597,14 @@
 <span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
-<p>第一个文档包含一个必要的 jsonContent 字段。
-第二个文档包含一个必要的 jsonS3Uri 和可选的 dataItemResourceLabels 字段。</p>
+<p>第一个文档包含一个必要的 <cite>jsonContent</cite> 字段。</p>
+<p>第二个文档包含一个必要的 <cite>jsonS3Uri</cite> 和可选的 <cite>dataItemResourceLabels</cite> 字段。</p>
+<p>为了便于阅读，以上示例包括换行符。
+在 JSON 文件中，请仅在每个文档后面添加换行符，实际文件如以下示例。</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="nt">&quot;jsonContent&quot;</span><span class="p">:{</span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="mi">42</span><span class="p">,</span><span class="nt">&quot;keys..&quot;</span><span class="p">:</span><span class="s2">&quot;values..&quot;</span><span class="p">}}</span><span class="w"></span>
+<span class="p">{</span><span class="nt">&quot;jsonS3Uri&quot;</span><span class="p">:</span><span class="s2">&quot;s3_uri_to_file&quot;</span><span class="p">,</span><span class="nt">&quot;dataItemResourceLabels&quot;</span><span class="p">:{</span><span class="nt">&quot;aiplatform.googleapis.com/ml_use&quot;</span><span class="p">:</span><span class="s2">&quot;training|test|validation&quot;</span><span class="p">}}</span><span class="w"></span>
+</pre></div>
+</div>
 </div>
 </div>
 </div>
