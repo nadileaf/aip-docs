@@ -40,6 +40,8 @@
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="所有数据集文档" href="datasets.html" />
+    <link rel="prev" title="使用交互式 shell 监控和调试训练 (TBD)" href="training.monitor-debug-interactive-shell.html" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="docsearch:language" content="zh-CN">
   </head>
@@ -82,7 +84,7 @@
       
       <div class="navbar-center-item">
         <ul id="navbar-main-elements" class="navbar-nav">
-    <li class="toctree-l1 nav-item">
+    <li class="toctree-l1 current active nav-item">
  <a class="reference internal nav-link" href="index.html">
   用户指南
  </a>
@@ -150,7 +152,150 @@
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
   <div class="bd-toc-item active">
-    
+    <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  基础
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="concepts.html">
+   AIP 概念
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  训练
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="training.html">
+   使用自定义训练创建模型
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="training.create-training-pipeline.html">
+     创建训练流水线
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="training.create-custom-container.html">
+     创建用于训练的自定义容器映像
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="training.create-python-pre-built-container.html">
+     为预构建容器创建一个 Python 训练应用 (TBD)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="training.monitor-debug-interactive-shell.html">
+     使用交互式 shell 监控和调试训练 (TBD)
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     使用代管式数据集
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  数据集
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="datasets.html">
+   所有数据集文档
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="simple">
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  预测
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="predictions.html">
+   请求预测
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="predictions.deploy-model-api.html">
+     使用 AIP API 部署模型
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  用例
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="usage.html">
+   AIP 用例
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../notebooks/usages/create-project.html">
+     创建项目
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../notebooks/usages/create-training-image.html">
+     创建训练映像
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../notebooks/usages/create-training-pipeline-using-container.html">
+     创建训练流水线（容器版本）
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../notebooks/usages/create-training-pipeline-using-python-module.html">
+     创建训练流水线（Python 模块版本）
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../notebooks/usages/deploy-model.html">
+     部署模型
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
   </div>
 </nav>
   </div>
@@ -167,9 +312,46 @@
     
     <div class="toc-item">
       
+<div class="tocsection onthispage mt-5 pt-1 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
 
 <nav id="bd-toc-nav">
-    
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   准备工作
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   从训练应用访问数据集
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id4">
+   数据集格式
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id5">
+     格式的路径
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id6">
+     最新版本的格式
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id8">
+     对象数据集
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
 </nav>
     </div>
     
@@ -189,6 +371,237 @@
                 
   <div class="section" id="training-using-managed-datasets">
 <span id="id1"></span><h1>使用代管式数据集<a class="headerlink" href="#training-using-managed-datasets" title="此标题的永久链接">#</a></h1>
+<p>我们建议您使用 Vertex AI 代管式数据集来训练自定义模型，而不是编写训练应用来直接提取训练数据。</p>
+<div class="section" id="id2">
+<h2>准备工作<a class="headerlink" href="#id2" title="此标题的永久链接">#</a></h2>
+<p>如需在训练应用中使用代管式数据集，您必须先 <a class="reference internal" href="datasets.html#datasets"><span class="std std-ref">创建数据集</span></a>。</p>
+</div>
+<div class="section" id="id3">
+<h2>从训练应用访问数据集<a class="headerlink" href="#id3" title="此标题的永久链接">#</a></h2>
+<p>Under Construction …</p>
+</div>
+<div class="section" id="id4">
+<h2>数据集格式<a class="headerlink" href="#id4" title="此标题的永久链接">#</a></h2>
+<div class="section" id="id5">
+<h3>格式的路径<a class="headerlink" href="#id5" title="此标题的永久链接">#</a></h3>
+<p><cite>s3://aip/schema/dataset/ioformat/{data_type}_{task_type}_io_format_{version}.yaml</cite></p>
+<p>数据类型 (data_type)</p>
+<table class="table">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>数据名称</p></th>
+<th class="head"><p>对应的值</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>对象</p></td>
+<td><p>json</p></td>
+</tr>
+<tr class="row-odd"><td><p>表格</p></td>
+<td><p>tabular</p></td>
+</tr>
+<tr class="row-even"><td><p>文本</p></td>
+<td><p>text</p></td>
+</tr>
+<tr class="row-odd"><td><p>图片</p></td>
+<td><p>image</p></td>
+</tr>
+<tr class="row-even"><td><p>视频</p></td>
+<td><p>video</p></td>
+</tr>
+</tbody>
+</table>
+<p>任务类型 (task_type)</p>
+<table class="table">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>任务名称</p></th>
+<th class="head"><p>对应的值</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>无特定目标</p></td>
+<td><p>no_specific_target</p></td>
+</tr>
+<tr class="row-odd"><td><p>单标签分类</p></td>
+<td><p>classification_single_label</p></td>
+</tr>
+<tr class="row-even"><td><p>多标签分类</p></td>
+<td><p>classification_multi_label</p></td>
+</tr>
+<tr class="row-odd"><td><p>实体提取</p></td>
+<td><p>extraction</p></td>
+</tr>
+<tr class="row-even"><td><p>情感分析</p></td>
+<td><p>sentiment</p></td>
+</tr>
+<tr class="row-odd"><td><p>对象检测</p></td>
+<td><p>bounding_box</p></td>
+</tr>
+<tr class="row-even"><td><p>动作识别</p></td>
+<td><p>action_recognition</p></td>
+</tr>
+<tr class="row-odd"><td><p>对象追踪</p></td>
+<td><p>object_tracking</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id6">
+<h3>最新版本的格式<a class="headerlink" href="#id6" title="此标题的永久链接">#</a></h3>
+<table class="table">
+<colgroup>
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head stub"></th>
+<th class="head"><p>无特定目标</p></th>
+<th class="head"><p>单标签分类</p></th>
+<th class="head"><p>多标签分类</p></th>
+<th class="head"><p>实体提取</p></th>
+<th class="head"><p>情感分析</p></th>
+<th class="head"><p>对象检测</p></th>
+<th class="head"><p>动作识别</p></th>
+<th class="head"><p>对象追踪</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><th class="stub"><p>对象</p></th>
+<td><p><a class="reference external" href="s3://aip/schema/dataset/ioformat/json_no_specific_target_io_format_1.0.0.yaml">1.0.0</a></p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><th class="stub"><p>表格</p></th>
+<td><p>TBD</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><th class="stub"><p>文本</p></th>
+<td><p>TBD</p></td>
+<td><p>TBD</p></td>
+<td><p>TBD</p></td>
+<td><p>TBD</p></td>
+<td><p>TBD</p></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><th class="stub"><p>图片</p></th>
+<td><p>TBD</p></td>
+<td><p>TBD</p></td>
+<td><p>TBD</p></td>
+<td></td>
+<td></td>
+<td><p>TBD</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><th class="stub"><p>视频</p></th>
+<td><p>TBD</p></td>
+<td><p>TBD</p></td>
+<td><p>TBD</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td><p>TBD</p></td>
+<td><p>TBD</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id8">
+<h3>对象数据集<a class="headerlink" href="#id8" title="此标题的永久链接">#</a></h3>
+<p>以下是 <cite>s3://aip/schema/dataset/ioformat/json_no_specific_target_io_format_1.0.0.yaml</cite> 里的定义。</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">JsonNoSpecificTarget</span><span class="w"></span>
+<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">&gt;</span><span class="w"></span>
+<span class="w">  </span><span class="no">Import and export format for importing/exporting text together without specific</span><span class="w"></span>
+<span class="w">  </span><span class="no">target. Can be used in Dataset.import_schema_uri field.</span><span class="w"></span>
+<span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">object</span><span class="w"></span>
+<span class="nt">required</span><span class="p">:</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">content</span><span class="w"></span>
+<span class="nt">properties</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">content</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">oneOf</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">object</span><span class="w"></span>
+<span class="w">      </span><span class="nt">properties</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"></span>
+<span class="w">          </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span><span class="w"></span>
+<span class="w">          </span><span class="nt">enum</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">jsonContent</span><span class="p p-Indicator">]</span><span class="w"></span>
+<span class="w">        </span><span class="nt">jsonContent</span><span class="p">:</span><span class="w"></span>
+<span class="w">          </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">json</span><span class="w"></span>
+<span class="w">          </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Full length json content. Up to 10MB in size.</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">object</span><span class="w"></span>
+<span class="w">      </span><span class="nt">properties</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"></span>
+<span class="w">          </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span><span class="w"></span>
+<span class="w">          </span><span class="nt">enum</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">jsonS3Uri</span><span class="p p-Indicator">]</span><span class="w"></span>
+<span class="w">        </span><span class="nt">jsonS3Uri</span><span class="p">:</span><span class="w"></span>
+<span class="w">          </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span><span class="w"></span>
+<span class="w">          </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">&gt;</span><span class="w"></span>
+<span class="w">            </span><span class="no">A Cloud Storage URI pointing to a json file. Up to 10MB in</span><span class="w"></span>
+<span class="w">            </span><span class="no">size. Supported file mime types: `application/json`.</span><span class="w"></span>
+<span class="w">    </span><span class="nt">discriminator</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">propertyName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">type</span><span class="w"></span>
+<span class="w">  </span><span class="nt">languageCode</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span><span class="w"></span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Optional language code of the text.</span><span class="w"></span>
+<span class="w">    </span><span class="nt">default</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">en-US</span><span class="w"></span>
+<span class="w">  </span><span class="nt">dataItemResourceLabels</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">&gt;</span><span class="w"></span>
+<span class="w">      </span><span class="no">Resource labels on the DataItem. Overrides values set in</span><span class="w"></span>
+<span class="w">      </span><span class="no">ImportDataConfig at import time. Can set a user-defined label</span><span class="w"></span>
+<span class="w">      </span><span class="no">or the predefined `aip.mesoor.com/ml_use` label, which is</span><span class="w"></span>
+<span class="w">      </span><span class="no">used to determine the data split and can be set to `training`, `test`,</span><span class="w"></span>
+<span class="w">      </span><span class="no">and `validation`.</span><span class="w"></span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">object</span><span class="w"></span>
+<span class="w">    </span><span class="nt">additionalProperties</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span><span class="w"></span>
+</pre></div>
+</div>
+<p>以下示例展示了如何使用定义创建自己的 JSON 行文件。
+为了便于阅读，示例包括换行符。在 JSON 文件中，请仅在每个文档后面添加换行符。</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;jsonContent&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;keys..&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;values..&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;jsonS3Uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;s3_uri_to_file&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;dataItemResourceLabels&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;aiplatform.googleapis.com/ml_use&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;training|test|validation&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>第一个文档包含一个必要的 jsonContent 字段。
+第二个文档包含一个必要的 jsonS3Uri 和可选的 dataItemResourceLabels 字段。</p>
+</div>
+</div>
 </div>
 
 
@@ -199,6 +612,20 @@
               <footer class="bd-footer-article">
                   <!-- Previous / next buttons -->
 <div class='prev-next-area'>
+  <a class='left-prev' id="prev-link" href="training.monitor-debug-interactive-shell.html" title="上一页 页">
+      <i class="fas fa-angle-left"></i>
+      <div class="prev-next-info">
+          <p class="prev-next-subtitle">上一页</p>
+          <p class="prev-next-title">使用交互式 shell 监控和调试训练 (TBD)</p>
+      </div>
+  </a>
+  <a class='right-next' id="next-link" href="datasets.html" title="下一页 页">
+  <div class="prev-next-info">
+      <p class="prev-next-subtitle">下一页</p>
+      <p class="prev-next-title">所有数据集文档</p>
+  </div>
+  <i class="fas fa-angle-right"></i>
+  </a>
 </div>
               </footer>
               
@@ -222,7 +649,7 @@
   
   <div class="footer-item">
     <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.1.0.<br>
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.1.1.<br>
 </p>
   </div>
   
